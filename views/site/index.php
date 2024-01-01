@@ -22,7 +22,7 @@ $model = new FormModelModal();
 
 
         <!-- Include the Modal View -->
-        <?= $this->render('_modal', ['model' => $model]) ?>
+        <?= $this->render('FormModal', ['model' => $model]) ?>
     </div>
 </div>
 
