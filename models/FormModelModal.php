@@ -2,20 +2,22 @@
 namespace app\models;
 
 use yii\base\Model;
+use yii\db\ActiveRecord;
 
-class FormModelModal extends Model
+class FormModelModal extends ActiveRecord
 {
-    public $name;
-    public $email;
-    public $id;
 
+    public static function tableName()
+    {
+        return 'submission';
+    }
     public function rules()
     {
         return [
-            [['email', 'id'], 'required'],
+            [['email', 'id_form'], 'required'],
             ['email', 'email'],
-            ['id', 'integer'],
-            ['name', 'safe'],
+            ['id_form', 'integer'],
+            [['name', 'email', 'id_form'], 'string', 'max' => 255], // This rule is for saving in the DB
         ];
     }
 }

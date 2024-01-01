@@ -15,6 +15,8 @@ $config = [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'KWV61W1pAwMJ8UMeor2olSALpT5Z4cGg',
+            'enableCookieValidation' => true,
+            'enableCsrfValidation' => true,
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -50,6 +52,15 @@ $config = [
             ],
         ],
         */
+
+        'urlManager' => [
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
+            'rules' => [
+                // Route for the form submission action
+                'form/submit-form' => 'form/submit-form',
+            ],
+        ],
     ],
     'params' => $params,
 ];

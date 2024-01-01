@@ -2,74 +2,121 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\bootstrap5\Modal;
+use app\models\ModalSettings;
 
 /* @var $model app\models\FormModelModal */
 
 // Define the delay in milliseconds
 $modalDelay = 1;
+// Default values for modal activation
 
+$enableModal = false;
+
+// Fetch the modal settings from the database
+$modalSettings = ModalSettings::findOne(1); // Assuming you have a row with ID 1
+
+// Check if the settings are enabled
+$isModalEnabledMaster = $modalSettings->isModalEnabledMaster;
+$isModalEnabledOnMobileIOS = $modalSettings->isModalEnabledOnMobileIOS;
+$isModalEnabledOnMobileAndroid = $modalSettings->isModalEnabledOnMobileAndroid;
+$isModalEnabledOnDesktop = $modalSettings->isModalEnabledOnDesktop;
+
+// Detect user agent to set modal activation conditions
+$userAgent = $_SERVER['HTTP_USER_AGENT'];
+
+if ($isModalEnabledMaster) {
+    if (str_contains($userAgent, 'iPhone') || str_contains($userAgent, 'iPad') && $isModalEnabledOnMobileIOS) {
+        $enableModal = true;
+    } elseif (str_contains($userAgent, 'Android') && $isModalEnabledOnMobileAndroid) {
+        $enableModal = true;
+    } elseif ($isModalEnabledOnDesktop) {
+        $enableModal = true;
+    }
+}
+
+if ($enableModal) {
 // Begin the modal
-Modal::begin([
-    'id' => 'myModal',
-    'title' => '<h2>Your Modal Title</h2>',
-    'toggleButton' => ['label' => 'Open Modal', 'class' => 'btn btn-primary'],
-]);
+    Modal::begin([
+        'id' => 'myModal',
+        'title' => '<h2>Your Modal Title</h2>',
+        'toggleButton' => ['label' => 'Open Modal', 'class' => 'btn btn-primary'],
+    ]);
 
-$form = ActiveForm::begin([
-    'id' => 'modal-form',
-    'options' => ['class' => 'form-horizontal'],
-]);
+    $form = ActiveForm::begin([
+        'id' => 'modal-form',
+        'options' => ['class' => 'form-horizontal'],
+    ]);
 
-echo $form->field($model, 'name');
-echo $form->field($model, 'email');
-echo $form->field($model, 'id');
+    // Add a div to display the error summary, initially hidden
+    echo '<div id="error-message" class="alert alert-danger" style="display:none"></div>';
 
-echo Html::submitButton('Submit', ['class' => 'btn btn-primary']);
+    echo $form->field($model, 'name');
+    echo $form->field($model, 'email');
+    echo $form->field($model, 'id_form');
 
-ActiveForm::end();
+    echo Html::submitButton('Submit', ['class' => 'btn btn-primary']);
+
+    ActiveForm::end();
 
 // End the modal
-Modal::end();
+    Modal::end();
+}
 ?>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        setTimeout(function() {
-            var myModal = new bootstrap.Modal(document.getElementById('myModal'), {
-                keyboard: false
-            });
-            myModal.show();
-        }, <?= $modalDelay ?>);
-    });
+<?php if ($enableModal): ?> <!-- Check if $enableModal is true -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(function() {
+                var myModal = new bootstrap.Modal(document.getElementById('myModal'), {
+                    keyboard: false
+                });
+                myModal.show();
+            }, <?= $modalDelay ?>);
+        });
 
-</script>
-<script>
-    $(document).ready(function() {
         // Assuming you have a form with the id 'modal-form'
         $('#modal-form').submit(function(event) {
-            event.preventDefault(); // Prevent the form from submitting in the default way
+            event.preventDefault();
+            event.stopImmediatePropagation();
 
-            // Get the form data as an object
-            var formData = {};
-            formData.name = $('#formmodelmodal-name').val(); // Replace 'formmodelmodal-name' with the actual name attribute of the 'name' field
-            formData.email = $('#formmodelmodal-email').val(); // Replace 'formmodelmodal-email' with the actual name attribute of the 'email' field
-            formData.id = $('#formmodelmodal-id').val(); // Replace 'formmodelmodal-id' with the actual name attribute of the 'id' field
+            var formData = {
+                name: $('#formmodelmodal-name').val(),
+                email: $('#formmodelmodal-email').val(),
+                id_form: $('#formmodelmodal-id_form').val(),
+            };
 
-            var submissionDate = new Date().toLocaleString();
-            formData.submissionDate = submissionDate;
+            formData.submissionDate = new Date().toLocaleString();
 
-            // Get the current date and time
-
-            // Log the form data and submission date to the console
             console.log('Form Data:');
             console.log(formData);
 
-            // Here, you can proceed with form submission or any other actions you need
-            // For example, you can use AJAX to submit the form data to the server.
+            $.ajax({
+                url: '/form/submit-form', // Use the custom route you defined
+                method: 'POST',
+                data: formData,
+                success: function(response) {
+                    response = JSON.parse(response);
+                    console.log('Response from PHP controller:');
+                    console.log(response);
 
-            // Replace the following line with your AJAX code or form submission logic.
-            // $.ajax({ /* Your AJAX configuration here */ });
+                    if (response.status === 'success') {
+                        $('#error-message').hide()
+                        $('#myModal').modal('hide');
+                    } else {
+                        $('#error-message').html(response.message);
+                        $('#error-message').show();
+                    }
+
+                },
+                error: function(error) {
+                    console.error('AJAX Error:', error);
+
+                    // Handle error response
+                    // For example, you can display an error message to the user
+                    $('#error-message').html('An error occurred. Please try again.');
+                }
+            });
+
         });
-    });
-
-</script>
+    </script>
+<?php endif; ?>
