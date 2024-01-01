@@ -34,27 +34,41 @@ $this->registerJsFile('https://code.jquery.com/jquery-3.6.0.min.js', ['position'
 <header id="header">
     <?php
     NavBar::begin([
-        'brandLabel' => Yii::$app->name,
+        'brandLabel' => 'GEMS-modal',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => ['class' => 'navbar-expand-md navbar-dark bg-dark fixed-top']
     ]);
+
+    $items = [
+        ['label' => 'Home', 'url' => ['/site/index']],
+        ['label' => 'Documentation', 'url' => ['/site/documentation']],
+    ];
+
+    $options = ['class' => 'navbar-nav'];
+
+    $loginItems = ['label' => 'Login', 'url' => ['/site/login']];
+
+    if (Yii::$app->user->isGuest) {
+        $items[] = $loginItems;
+    } else {
+        $adminItems = ['label' => 'Admin Actions', 'url' => ['/site/admin']];
+        $items[] = $adminItems;
+
+        $logoutItems = '<li class="nav-item">'
+            . Html::beginForm(['/site/logout'])
+            . Html::submitButton(
+                'Logout (' . Yii::$app->user->identity->username . ')',
+                ['class' => 'nav-link btn btn-link logout']
+            )
+            . Html::endForm()
+            . '</li>';
+
+        $items[] = $logoutItems;
+    }
+
     echo Nav::widget([
-        'options' => ['class' => 'navbar-nav'],
-        'items' => [
-            ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'About', 'url' => ['/site/about']],
-            ['label' => 'Contact', 'url' => ['/site/contact']],
-            Yii::$app->user->isGuest
-                ? ['label' => 'Login', 'url' => ['/site/login']]
-                : '<li class="nav-item">'
-                    . Html::beginForm(['/site/logout'])
-                    . Html::submitButton(
-                        'Logout (' . Yii::$app->user->identity->username . ')',
-                        ['class' => 'nav-link btn btn-link logout']
-                    )
-                    . Html::endForm()
-                    . '</li>'
-        ]
+        'options' => $options,
+        'items' => $items
     ]);
     NavBar::end();
     ?>
@@ -62,6 +76,12 @@ $this->registerJsFile('https://code.jquery.com/jquery-3.6.0.min.js', ['position'
 
 <main id="main" class="flex-shrink-0" role="main">
     <div class="container">
+
+        <div id="w3-success-0" class="alert-success alert alert-dismissible" style="display: none" role="alert">
+            Form submitted successfully
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
         <?php if (!empty($this->params['breadcrumbs'])): ?>
             <?= Breadcrumbs::widget(['links' => $this->params['breadcrumbs']]) ?>
         <?php endif ?>
@@ -73,8 +93,7 @@ $this->registerJsFile('https://code.jquery.com/jquery-3.6.0.min.js', ['position'
 <footer id="footer" class="mt-auto py-3 bg-light">
     <div class="container">
         <div class="row text-muted">
-            <div class="col-md-6 text-center text-md-start">&copy; My Company <?= date('Y') ?></div>
-            <div class="col-md-6 text-center text-md-end"><?= Yii::powered() ?></div>
+
         </div>
     </div>
 </footer>

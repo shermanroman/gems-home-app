@@ -8,6 +8,7 @@ use Yii;
  * This is the model class for table "modal_settings".
  *
  * @property int $id
+ * @property int|null $delay
  * @property int|null $isModalEnabledMaster
  * @property int|null $isModalEnabledOnMobileIOS
  * @property int|null $isModalEnabledOnMobileAndroid
@@ -29,7 +30,7 @@ class ModalSettings extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['isModalEnabledMaster', 'isModalEnabledOnMobileIOS', 'isModalEnabledOnMobileAndroid', 'isModalEnabledOnDesktop'], 'integer'],
+            [['delay', 'isModalEnabledMaster', 'isModalEnabledOnMobileIOS', 'isModalEnabledOnMobileAndroid', 'isModalEnabledOnDesktop'], 'integer'],
         ];
     }
 
@@ -40,6 +41,7 @@ class ModalSettings extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
+            'delay' => 'Delay (in milliseconds)',
             'isModalEnabledMaster' => 'Is Modal Enabled Master',
             'isModalEnabledOnMobileIOS' => 'Is Modal Enabled On Mobile Ios',
             'isModalEnabledOnMobileAndroid' => 'Is Modal Enabled On Mobile Android',

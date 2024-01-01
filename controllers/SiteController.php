@@ -2,9 +2,11 @@
 
 namespace app\controllers;
 
+use app\models\ModalSettings;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
+use yii\web\NotFoundHttpException;
 use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
@@ -63,6 +65,40 @@ class SiteController extends Controller
     {
         return $this->render('index');
     }
+
+    public function actionDocumentation()
+    {
+        return $this->render('documentation');
+    }
+
+    /**
+     * @throws NotFoundHttpException
+     */
+    public function actionAdmin()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->render('adminAccessDenied');
+        }
+
+        // Load the existing record with ID 1
+        $model = ModalSettings::findOne(1);
+
+        if (!$model) {
+            // Handle the case where the record with ID 1 is not found
+            throw new NotFoundHttpException('The requested record does not exist.');
+        }
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            // The form was successfully submitted, and the record is updated
+            Yii::$app->session->setFlash('success', 'Settings updated successfully');
+            return $this->refresh(); // Optional: Redirect back to the admin page
+        }
+
+        return $this->render('admin', [
+            'model' => $model,
+        ]);
+    }
+
 
     /**
      * Login action.

@@ -6,16 +6,13 @@ use app\models\ModalSettings;
 
 /* @var $model app\models\FormModelModal */
 
-// Define the delay in milliseconds
-$modalDelay = 1;
-// Default values for modal activation
-
 $enableModal = false;
 
 // Fetch the modal settings from the database
 $modalSettings = ModalSettings::findOne(1); // Assuming you have a row with ID 1
 
 // Check if the settings are enabled
+$modalDelay = $modalSettings->delay;
 $isModalEnabledMaster = $modalSettings->isModalEnabledMaster;
 $isModalEnabledOnMobileIOS = $modalSettings->isModalEnabledOnMobileIOS;
 $isModalEnabledOnMobileAndroid = $modalSettings->isModalEnabledOnMobileAndroid;
@@ -38,7 +35,7 @@ if ($enableModal) {
 // Begin the modal
     Modal::begin([
         'id' => 'myModal',
-        'title' => '<h2>Your Modal Title</h2>',
+        'title' => '<h2>Submit your data</h2>',
         'toggleButton' => ['label' => 'Open Modal', 'class' => 'btn btn-primary'],
     ]);
 
@@ -100,6 +97,10 @@ if ($enableModal) {
                     console.log(response);
 
                     if (response.status === 'success') {
+                        var $alert = $("#w3-success-0");
+
+                        // Use jQuery to change its CSS "display" property to "block" to make it visible
+                        $alert.css("display", "block");
                         $('#error-message').hide()
                         $('#myModal').modal('hide');
                     } else {
