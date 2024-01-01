@@ -5,6 +5,9 @@ use yii\bootstrap5\Modal;
 
 /* @var $model app\models\FormModelModal */
 
+// Define the delay in milliseconds
+$modalDelay = 5000;
+
 // Begin the modal
 Modal::begin([
     'id' => 'myModal',
@@ -30,16 +33,13 @@ Modal::end();
 ?>
 
 <script>
-    document.getElementById('modal-form').onsubmit = function(event) {
-        console.log('qweqweqweqwe')
-        event.preventDefault();
-        var formData = new FormData(this);
-        fetch('?r=site/index', {
-            method: 'POST',
-            body: formData
-        })
-            .then(response => response.json())
-            .then(data => console.log(data))
-            .catch(error => console.error('Error:', error));
-    };
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(function() {
+            var myModal = new bootstrap.Modal(document.getElementById('myModal'), {
+                keyboard: false
+            });
+            myModal.show();
+        }, <?= $modalDelay ?>);
+    });
+
 </script>
