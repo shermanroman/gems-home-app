@@ -6,7 +6,7 @@ use app\models\FormModelModal;
 
 /** @var yii\web\View $this */
 
-$this->title = 'My Yii Application';
+$this->title = 'Home';
 
 // Initialize the model for the modal
 $model = new FormModelModal();
