@@ -30,7 +30,5 @@ class FormController extends Controller
                 return json_encode(['status' => 'error', 'message' => 'Failed to submit the form']);
             }
         }
-
-        // Handle non-AJAX requests or other actions as needed
     }
 }
