@@ -24,12 +24,16 @@ $hideButton = $modalSettings->hideButton;
 $userAgent = $_SERVER['HTTP_USER_AGENT'];
 
 if ($isModalEnabledMaster) {
-    if ((str_contains($userAgent, 'iPhone') && $isModalEnabledOnMobileIOS) || (str_contains($userAgent, 'iPad') && $isModalEnabledOnMobileIOS)) {
-        $messageToDisplay = 'This is an iOS device';
-        $enableModal = true;
-    } elseif (str_contains($userAgent, 'Android') && $isModalEnabledOnMobileAndroid) {
-        $messageToDisplay = 'This is an Android device';
-        $enableModal = true;
+    if (str_contains($userAgent, 'iPhone') || str_contains($userAgent, 'iPad')) {
+        if ($isModalEnabledOnMobileIOS) {
+            $messageToDisplay = 'This is an iOS device';
+            $enableModal = true;
+        }
+    } elseif (str_contains($userAgent, 'Android')) {
+        if ($isModalEnabledOnMobileAndroid) {
+            $messageToDisplay = 'This is an Android device';
+            $enableModal = true;
+        }
     } elseif ($isModalEnabledOnDesktop) {
         $messageToDisplay = 'This is a desktop device';
         $enableModal = true;
@@ -61,7 +65,6 @@ if ($enableModal) {
 
     // Add a div to display the error summary, initially hidden
     echo '<div id="error-message" class="alert alert-danger" style="display:none"></div>';
-    echo '<div id="display-area">'.$messageToDisplay .'</div>';
 
     echo $form->field($model, 'name');
     echo $form->field($model, 'email');
