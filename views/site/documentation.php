@@ -91,6 +91,7 @@
         <div class="database-config">
             <h4>1.2. Configuring the Database</h4>
             <p>Setting up the database in Yii2 involved using the <code>db.php</code> file for defining the database details. This was key for maintaining secure and reliable data handling.</p>
+            <p>I have my own cluster on <code>AWS RDS</code>, so I used it. </p>
         </div>
 
         <div class="model-design">
