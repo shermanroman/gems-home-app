@@ -36,7 +36,7 @@ if ($enableModal) {
     Modal::begin([
         'id' => 'myModal',
         'title' => '<h2>Submit your data</h2>',
-        'toggleButton' => ['label' => 'Open Modal', 'class' => 'btn btn-primary'],
+        'toggleButton' => ['label' => 'Open Modal', 'class' => 'btn btn-primary', 'style' => 'display:none;'],
     ]);
 
     $form = ActiveForm::begin([
