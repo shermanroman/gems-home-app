@@ -17,6 +17,8 @@ $isModalEnabledMaster = $modalSettings->isModalEnabledMaster;
 $isModalEnabledOnMobileIOS = $modalSettings->isModalEnabledOnMobileIOS;
 $isModalEnabledOnMobileAndroid = $modalSettings->isModalEnabledOnMobileAndroid;
 $isModalEnabledOnDesktop = $modalSettings->isModalEnabledOnDesktop;
+$hideButton = $modalSettings->hideButton;
+
 
 // Detect user agent to set modal activation conditions
 $userAgent = $_SERVER['HTTP_USER_AGENT'];
@@ -33,10 +35,20 @@ if ($isModalEnabledMaster) {
 
 if ($enableModal) {
 // Begin the modal
+
+    $toggleButtonAttributes = [
+        'label' => 'Open Modal',
+        'class' => 'btn btn-primary',
+    ];
+
+    if ($hideButton) {
+        $toggleButtonAttributes['style'] = 'display:none;';
+    }
+
     Modal::begin([
         'id' => 'myModal',
         'title' => '<h2>Submit your data</h2>',
-        'toggleButton' => ['label' => 'Open Modal', 'class' => 'btn btn-primary', 'style' => 'display:none;'],
+        'toggleButton' => $toggleButtonAttributes,
     ]);
 
     $form = ActiveForm::begin([

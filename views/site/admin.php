@@ -19,6 +19,7 @@ $this->title = 'Admin Settings';
 <div class="admin-form">
     <?php $form = ActiveForm::begin(); ?>
 
+    <?= $form->field($model, 'hideButton')->checkbox() ?>
     <?= $form->field($model, 'isModalEnabledMaster')->checkbox() ?>
     <?= $form->field($model, 'isModalEnabledOnMobileIOS')->checkbox() ?>
     <?= $form->field($model, 'isModalEnabledOnMobileAndroid')->checkbox() ?>

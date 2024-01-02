@@ -19,6 +19,7 @@ class m240101_201845_create_modal_settings_table extends Migration
             'isModalEnabledOnMobileIOS' => $this->boolean()->defaultValue(true),
             'isModalEnabledOnMobileAndroid' => $this->boolean()->defaultValue(true),
             'isModalEnabledOnDesktop' => $this->boolean()->defaultValue(true),
+            'hideButton' => $this->boolean()->defaultValue(true),
         ]);
 
         $this->insert('{{%modal_settings}}', [
@@ -27,6 +28,7 @@ class m240101_201845_create_modal_settings_table extends Migration
             'isModalEnabledOnMobileIOS' => true,
             'isModalEnabledOnMobileAndroid' => true,
             'isModalEnabledOnDesktop' => true,
+            'hideButton' => true,
         ]);
     }
 

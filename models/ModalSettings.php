@@ -13,6 +13,7 @@ use Yii;
  * @property int|null $isModalEnabledOnMobileIOS
  * @property int|null $isModalEnabledOnMobileAndroid
  * @property int|null $isModalEnabledOnDesktop
+ * @property int|null $hideButton
  */
 class ModalSettings extends \yii\db\ActiveRecord
 {
@@ -30,7 +31,7 @@ class ModalSettings extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['delay', 'isModalEnabledMaster', 'isModalEnabledOnMobileIOS', 'isModalEnabledOnMobileAndroid', 'isModalEnabledOnDesktop'], 'integer'],
+            [['delay', 'isModalEnabledMaster', 'isModalEnabledOnMobileIOS', 'isModalEnabledOnMobileAndroid', 'isModalEnabledOnDesktop', 'hideButton'], 'integer'],
         ];
     }
 
@@ -41,11 +42,12 @@ class ModalSettings extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'delay' => 'Delay (in milliseconds)',
+            'delay' => 'Delay',
             'isModalEnabledMaster' => 'Is Modal Enabled Master',
             'isModalEnabledOnMobileIOS' => 'Is Modal Enabled On Mobile Ios',
             'isModalEnabledOnMobileAndroid' => 'Is Modal Enabled On Mobile Android',
             'isModalEnabledOnDesktop' => 'Is Modal Enabled On Desktop',
+            'hideButton' => 'Hide Button (In UI)',
         ];
     }
 }
