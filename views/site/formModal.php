@@ -68,7 +68,7 @@ if ($enableModal) {
 
     echo $form->field($model, 'name');
     echo $form->field($model, 'email');
-    echo $form->field($model, 'id_form');
+    echo $form->field($model, 'id_form')->textInput(['type' => 'number']);
 
     echo Html::submitButton('Submit', ['class' => 'btn btn-primary']);
 
