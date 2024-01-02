@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -29,6 +27,7 @@
         h2, h3, h4 {
             font-size: 24px;
             color: #555;
+            margin-bottom: inherit;
         }
 
         section {
@@ -164,16 +163,18 @@
 
     <section id="dev-challenges">
         <h3>5. Overcoming Development Challenges</h3>
-
         <ul>
-            <li>Adapting to Yii2's routing system was initially challenging.</li>
-            <li>Integrating Yii2's form-building approach, a shift from my Laravel and Vue.js experience.</li>
-            <li>Aligning with Yii2's best practices, which often merged HTML and PHP in a single file, was unconventional.</li>
+            <li>Adapting to Yii2's routing system was initially challenging, especially given its unique methods compared to frameworks I'm more familiar with, like Laravel.</li>
+            <li>Integrating Yii2's form-building approach required a significant shift from my experience with Laravel and Vue.js, posing a steep learning curve.</li>
+            <li>Aligning with Yii2's best practices, which often merged HTML and PHP in a single file, was unconventional and required adapting my development approach.</li>
         </ul>
     </section>
 
-    <h2>Final Thoughts</h2>
-    <p>This journey with Yii2, from the interactive modal form to the customizable admin settings, highlights not just the technical feats but also the developmental challenges and learning experiences. I hope this documentation assists those on similar paths and encourages reaching out for guidance in the realm of development.</p>
+    <section>
+        <h2>Final Thoughts</h2>
+        <p>This journey with Yii2, from the initial challenges to the final satisfaction of completing the project, has been a profound learning experience. The framework's distinct implementation style, particularly in areas like the Bootstrap 5 component integration and the peculiar routing methods, presented numerous learning opportunities. Despite these hurdles, my commitment to adhering to best programming practices played a pivotal role in navigating these unfamiliar methodologies. Ultimately, the project was not only a testament to my ability to adapt and learn but also a valuable addition to my development repertoire. It underscored the importance of flexibility and resilience in the tech world, preparing me for future projects that may require stepping out of my comfort zone.</p>
+    </section>
+
 </div>
 </body>
 </html>
