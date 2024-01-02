@@ -1,5 +1,35 @@
-protected/runtime/*
-!protected/runtime/.gitignore
-protected/data/*.db
-themes/classic/views/
-.env
+#protected/runtime/*
+#!protected/runtime/.gitignore
+#protected/data/*.db
+#themes/classic/views/
+
+# Yii framework .gitignore
+
+# Ignore runtime and log files
+runtime/
+protected/runtime/
+
+# Ignore user uploaded files
+uploads/
+
+# Ignore Composer files
+/vendor/
+composer.lock
+
+# Ignore environment files
+/.env
+/.env.example
+
+# Ignore IDE and editor files
+/.idea/
+*.swp
+*~
+
+# Ignore operating system generated files
+.DS_Store
+Thumbs.db
+
+# Ignore other common files
+/.buildpath
+/.project
+/.settings/
