@@ -2,10 +2,11 @@
 
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=general.cr0ycma80jcx.eu-west-1.rds.amazonaws.com;dbname=gems-home-app',
-    'username' => 'gems_home_user',
-    'password' => '1234',
+    'dsn' => 'mysql:host='.env('DB_HOST').';dbname=' . env("DB_NAME"),
+    'username' => env("DB_USER"),
+    'password' => env("DB_PASS"),
     'charset' => 'utf8',
+
 
     // Schema cache options (for production environment)
     //'enableSchemaCache' => true,

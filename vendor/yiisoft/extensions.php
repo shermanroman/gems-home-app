@@ -49,4 +49,13 @@ return array (
       '@yii/gii' => $vendorDir . '/yiisoft/yii2-gii/src',
     ),
   ),
+  'yiithings/yii2-dotenv' => 
+  array (
+    'name' => 'yiithings/yii2-dotenv',
+    'version' => '1.1.0.0',
+    'alias' => 
+    array (
+      '@yiithings/dotenv' => $vendorDir . '/yiithings/yii2-dotenv/src',
+    ),
+  ),
 );
