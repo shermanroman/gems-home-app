@@ -42,7 +42,7 @@ class ModalSettings extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'delay' => 'Delay',
+            'delay' => 'Delay (in milliseconds)',
             'isModalEnabledMaster' => 'Is Modal Enabled Master',
             'isModalEnabledOnMobileIOS' => 'Is Modal Enabled On Mobile Ios',
             'isModalEnabledOnMobileAndroid' => 'Is Modal Enabled On Mobile Android',
